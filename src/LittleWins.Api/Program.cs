@@ -15,6 +15,7 @@ builder.Services.AddDbContext<LittleWinsDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("LittleWins")));
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -39,5 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapControllers();
 
 app.Run();
