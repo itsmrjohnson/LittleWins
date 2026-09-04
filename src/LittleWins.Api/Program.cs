@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using LittleWins.Api;
 using LittleWins.Application.UseCases.Families.CreateFamily;
 using LittleWins.Application.UseCases.Members.AddMember;
 using LittleWins.Application.UseCases.Activities.CreateActivity;
@@ -9,6 +11,7 @@ using LittleWins.Infrastructure.Persistence;
 using LittleWins.Infrastructure.Persistence.Repositories;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<LittleWinsDbContext>(options =>
@@ -16,6 +19,13 @@ builder.Services.AddDbContext<LittleWinsDbContext>(options =>
         builder.Configuration.GetConnectionString("LittleWins")));
 
 builder.Services.AddControllers();
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateFamilyCommandValidator>();
+
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -39,8 +49,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseExceptionHandler();
+
 app.UseHttpsRedirection();
 
 app.MapControllers();
 
 app.Run();
+
+public partial class Program
+{
+}

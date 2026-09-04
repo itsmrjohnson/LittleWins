@@ -20,11 +20,14 @@ public class CreateActivityHandlerTests
         var activityRepository = new FakeActivityRepository();
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new CreateActivityCommandValidator();
+
         var handler = new CreateActivityHandler(
             familyRepository,
             memberRepository,
             activityRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new CreateActivityCommand(
             family.Id,
@@ -67,11 +70,14 @@ public class CreateActivityHandlerTests
         var activityRepository = new FakeActivityRepository();
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new CreateActivityCommandValidator();
+
         var handler = new CreateActivityHandler(
             familyRepository,
             memberRepository,
             activityRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new CreateActivityCommand(
             Guid.NewGuid(),
@@ -108,11 +114,14 @@ public class CreateActivityHandlerTests
         var activityRepository = new FakeActivityRepository();
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new CreateActivityCommandValidator();
+
         var handler = new CreateActivityHandler(
             familyRepository,
             memberRepository,
             activityRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new CreateActivityCommand(
             family.Id,
@@ -151,11 +160,14 @@ public class CreateActivityHandlerTests
         var activityRepository = new FakeActivityRepository();
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new CreateActivityCommandValidator();
+
         var handler = new CreateActivityHandler(
             familyRepository,
             memberRepository,
             activityRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new CreateActivityCommand(
             family.Id,

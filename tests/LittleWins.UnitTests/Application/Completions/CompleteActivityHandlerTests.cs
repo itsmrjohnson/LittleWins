@@ -21,11 +21,14 @@ public class CompleteActivityHandlerTests
         var completionRepository = new FakeActivityCompletionRepository();
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new CompleteActivityCommandValidator();
+
         var handler = new CompleteActivityHandler(
             activityRepository,
             memberRepository,
             completionRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new CompleteActivityCommand(
             activity.Id,
@@ -60,11 +63,14 @@ public class CompleteActivityHandlerTests
         var completionRepository = new FakeActivityCompletionRepository();
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new CompleteActivityCommandValidator();
+
         var handler = new CompleteActivityHandler(
             activityRepository,
             memberRepository,
             completionRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new CompleteActivityCommand(
             Guid.NewGuid(),
@@ -97,11 +103,14 @@ public class CompleteActivityHandlerTests
         var completionRepository = new FakeActivityCompletionRepository();
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new CompleteActivityCommandValidator();
+
         var handler = new CompleteActivityHandler(
             activityRepository,
             memberRepository,
             completionRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new CompleteActivityCommand(
             activity.Id,
@@ -138,11 +147,14 @@ public class CompleteActivityHandlerTests
         var completionRepository = new FakeActivityCompletionRepository();
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new CompleteActivityCommandValidator();
+
         var handler = new CompleteActivityHandler(
             activityRepository,
             memberRepository,
             completionRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new CompleteActivityCommand(
             activity.Id,
@@ -177,11 +189,14 @@ public class CompleteActivityHandlerTests
         var completionRepository = new FakeActivityCompletionRepository();
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new CompleteActivityCommandValidator();
+
         var handler = new CompleteActivityHandler(
             activityRepository,
             memberRepository,
             completionRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new CompleteActivityCommand(
             activity.Id,

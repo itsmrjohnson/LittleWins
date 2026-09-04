@@ -1,3 +1,4 @@
+using FluentValidation;
 using LittleWins.Application.Abstractions.Persistence;
 using LittleWins.Domain.Entities;
 
@@ -8,21 +9,28 @@ public sealed class AddMemberHandler
     private readonly IFamilyRepository _familyRepository;
     private readonly IMemberRepository _memberRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IValidator<AddMemberCommand> _validator;
 
     public AddMemberHandler(
         IFamilyRepository familyRepository,
         IMemberRepository memberRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IValidator<AddMemberCommand> validator)
     {
         _familyRepository = familyRepository;
         _memberRepository = memberRepository;
         _unitOfWork = unitOfWork;
+        _validator = validator;
     }
 
     public async Task<AddMemberResult> HandleAsync(
         AddMemberCommand command,
         CancellationToken cancellationToken)
     {
+        await _validator.ValidateAndThrowAsync(
+            command,
+            cancellationToken);
+
         var family = await _familyRepository.GetByIdAsync(
             command.FamilyId,
             cancellationToken);
