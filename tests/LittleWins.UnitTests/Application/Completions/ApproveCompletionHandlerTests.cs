@@ -29,11 +29,14 @@ public class ApproveCompletionHandlerTests
 
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new ApproveCompletionCommandValidator();
+
         var handler = new ApproveCompletionHandler(
             completionRepository,
             activityRepository,
             memberRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new ApproveCompletionCommand(
             completion.Id,
@@ -73,11 +76,14 @@ public class ApproveCompletionHandlerTests
 
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new ApproveCompletionCommandValidator();
+
         var handler = new ApproveCompletionHandler(
             completionRepository,
             activityRepository,
             memberRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new ApproveCompletionCommand(
             Guid.NewGuid(),
@@ -116,11 +122,14 @@ public class ApproveCompletionHandlerTests
 
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new ApproveCompletionCommandValidator();
+
         var handler = new ApproveCompletionHandler(
             completionRepository,
             activityRepository,
             memberRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new ApproveCompletionCommand(
             completion.Id,
@@ -159,11 +168,14 @@ public class ApproveCompletionHandlerTests
 
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new ApproveCompletionCommandValidator();
+
         var handler = new ApproveCompletionHandler(
             completionRepository,
             activityRepository,
             memberRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new ApproveCompletionCommand(
             completion.Id,
@@ -203,11 +215,14 @@ public class ApproveCompletionHandlerTests
 
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new ApproveCompletionCommandValidator();
+
         var handler = new ApproveCompletionHandler(
             completionRepository,
             activityRepository,
             memberRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new ApproveCompletionCommand(
             completion.Id,
@@ -253,11 +268,14 @@ public class ApproveCompletionHandlerTests
 
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new ApproveCompletionCommandValidator();
+
         var handler = new ApproveCompletionHandler(
             completionRepository,
             activityRepository,
             memberRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new ApproveCompletionCommand(
             completion.Id,
@@ -305,11 +323,14 @@ public class ApproveCompletionHandlerTests
 
         var unitOfWork = new FakeUnitOfWork();
 
+        var validator = new ApproveCompletionCommandValidator();
+
         var handler = new ApproveCompletionHandler(
             completionRepository,
             activityRepository,
             memberRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new ApproveCompletionCommand(
             completion.Id,

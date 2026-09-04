@@ -1,3 +1,4 @@
+using FluentValidation;
 using LittleWins.Application.Abstractions.Persistence;
 
 namespace LittleWins.Application.UseCases.Completions.ApproveCompletion;
@@ -8,23 +9,30 @@ public sealed class ApproveCompletionHandler
     private readonly IActivityRepository _activityRepository;
     private readonly IMemberRepository _memberRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IValidator<ApproveCompletionCommand> _validator;
 
     public ApproveCompletionHandler(
         IActivityCompletionRepository completionRepository,
         IActivityRepository activityRepository,
         IMemberRepository memberRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IValidator<ApproveCompletionCommand> validator)
     {
         _completionRepository = completionRepository;
         _activityRepository = activityRepository;
         _memberRepository = memberRepository;
         _unitOfWork = unitOfWork;
+        _validator = validator;
     }
 
     public async Task<ApproveCompletionResult> HandleAsync(
         ApproveCompletionCommand command,
         CancellationToken cancellationToken)
     {
+        await _validator.ValidateAndThrowAsync(
+            command,
+            cancellationToken);
+
         var completion = await _completionRepository.GetByIdAsync(
             command.CompletionId,
             cancellationToken);

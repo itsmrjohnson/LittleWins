@@ -8,8 +8,13 @@ namespace LittleWins.UnitTests.Application.Members;
 
 public class AddMemberHandlerTests
 {
+    private const string FamilyName = "The Smith Family";
+    private const string MemberName = "Alex";
+    private const string MissingFamilyMessage = "Family was not found.";
+    private const int MaximumNameLength = 100;
+
     [Fact]
-    public async Task HandleAsync_ValidCommand_AddsMemberToFamily()
+    public async Task HandleAsyncValidCommandAddsMemberToFamily()
     {
         // Arrange
         var family = CreateFamily();
@@ -17,15 +22,17 @@ public class AddMemberHandlerTests
         var familyRepository = new FakeFamilyRepository(family);
         var memberRepository = new FakeMemberRepository();
         var unitOfWork = new FakeUnitOfWork();
+        var validator = new AddMemberCommandValidator();
 
         var handler = new AddMemberHandler(
             familyRepository,
             memberRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new AddMemberCommand(
             family.Id,
-            "Alex",
+            MemberName,
             MemberRole.Child);
 
         // Act
@@ -34,12 +41,12 @@ public class AddMemberHandlerTests
             CancellationToken.None);
 
         // Assert
-        result.Name.Should().Be("Alex");
+        result.Name.Should().Be(MemberName);
         result.FamilyId.Should().Be(family.Id);
         result.MemberId.Should().NotBe(Guid.Empty);
 
         memberRepository.AddedMember.Should().NotBeNull();
-        memberRepository.AddedMember!.Name.Should().Be("Alex");
+        memberRepository.AddedMember!.Name.Should().Be(MemberName);
         memberRepository.AddedMember.FamilyId.Should().Be(family.Id);
         memberRepository.AddedMember.Role.Should().Be(MemberRole.Child);
 
@@ -49,21 +56,23 @@ public class AddMemberHandlerTests
     }
 
     [Fact]
-    public async Task HandleAsync_FamilyDoesNotExist_ThrowsInvalidOperationException()
+    public async Task HandleAsyncFamilyDoesNotExistThrowsInvalidOperationException()
     {
         // Arrange
         var familyRepository = new FakeFamilyRepository();
         var memberRepository = new FakeMemberRepository();
         var unitOfWork = new FakeUnitOfWork();
+        var validator = new AddMemberCommandValidator();
 
         var handler = new AddMemberHandler(
             familyRepository,
             memberRepository,
-            unitOfWork);
+            unitOfWork,
+            validator);
 
         var command = new AddMemberCommand(
             Guid.NewGuid(),
-            "Alex",
+            MemberName,
             MemberRole.Child);
 
         // Act
@@ -74,7 +83,7 @@ public class AddMemberHandlerTests
         // Assert
         await act.Should()
             .ThrowAsync<InvalidOperationException>()
-            .WithMessage("Family was not found.");
+            .WithMessage(MissingFamilyMessage);
 
         memberRepository.AddedMember.Should().BeNull();
         unitOfWork.SaveChangesCallCount.Should().Be(0);
@@ -82,6 +91,6 @@ public class AddMemberHandlerTests
 
     private static Family CreateFamily()
     {
-        return new Family("The Smith Family");
+        return new Family(FamilyName);
     }
 }
